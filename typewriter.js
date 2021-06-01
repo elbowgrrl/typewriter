@@ -1,21 +1,54 @@
-const wakeUp = "wake up Neo\n";
-const danger = "you're in danger Neo\n";
-const whiteRabbit = "follow the white rabbit\n"
+const wakeUp = "wake up Neo";
+const danger = "you're in danger Neo";
+const whiteRabbit = "follow the white rabbit\n";
 
-delay = 0;
 
-const printSentence = (sentence) => {
+letterdelay = 0;
+nextDelay = 3000;
+
+const printSentence = (sentence, next) => {
 
   for (const char of sentence) {
-    delay += 100;
+    letterdelay += 50;
     setTimeout(() => {
       process.stdout.write(char)
-    }, delay)
+    }, letterdelay)
   }
+  if (null !== next) {
+    next(nextDelay);
+  }
+};
 
-}
+const printWakeUp = (delay) => {
 
-setTimeout(() => {printSentence(wakeUp)}, 1000)
-setTimeout(() => {printSentence(danger)}, 2000)
-setTimeout(() => {printSentence(whiteRabbit)}, 3000)
+  setTimeout(() => {
+    printSentence(wakeUp, printDanger)
+    console.clear()
+  }, delay)
+  
+};
+
+const printDanger = (delay) => {
+
+  setTimeout(() => {
+    printSentence(danger, printWhiteRabbit)
+    console.clear()
+  }, delay)
+  
+};
+
+const printWhiteRabbit = (delay) => {
+
+  setTimeout(() => {
+    printSentence(whiteRabbit, null)
+    console.clear()
+  }, delay)
+  
+};
+
+printWakeUp(3000)
+
+
+
+
 
